@@ -1,6 +1,7 @@
 <?php    
 	session_start();
 	include 'server.php';
+	$id = $_SESSION['id'];
 	if(isset($_SESSION['status'])){
 		if($_SESSION['status'] = "ok") 
 		{
@@ -24,7 +25,7 @@
             </h2>
 
             <p>Enter User Information: (Name - Payment Status)    <input type="text" name="infoNameUser" value="">  <input type="text" name="infoPaymentStatus" value=""> <input type="submit" name="infoSubmit">
-             <input type="submit" name="show" value="View Info"></p>
+             <input type="submit" name="show" value="View Info"></p> 
 
             <?php
             
@@ -56,13 +57,43 @@
             
             <hr> 
 
+             <input type="submit" name="myinfo" value="My Info">
+             <?php
+             	if(isset($_POST['myinfo']))
+             	{	
+             		$db = mysqli_connect('127.0.0.1', 'root' , '' , 'adminsystem');
+             		$user_check_query = "SELECT * FROM admin WHERE uidAdmin= '".$id."'";
+             		$result2 = $db->query($user_check_query);
+             		if ($result = $db->query($user_check_query)) {
+
+    /* fetch associative array */
+			    while ($row = $result2->fetch_assoc()) {
+			        $field1name = $row["uidAdmin"];
+			        $field2name = $row["nameAdmin"];
+			        $field3name = $row["emailAdmin"];
+
+			        echo "<br>";
+			        echo "User ID: ";
+			        echo $field1name.'<br />';
+			        echo "Name: ";
+			        echo $field2name.'<br />';
+			         echo "Email ID: ";
+			        echo $field3name; 
+			    }
+
+
+             	}
+             }
+             ?>
+         <hr>
 	<button><a href="logout.php">Logout</a></button>
 	</form>
 </body>
 </html>
+
 <?php
 
-	}else{
+		}else{
 	header('location: login.php');
 		}
 	}
@@ -72,4 +103,4 @@
 	}
 	
 
-?>
+	?>

@@ -88,8 +88,9 @@ if(isset($_POST["loginButton"])){
         if(mysqli_num_rows($result1) == 1){
             session_start(); 
              $_SESSION['id'] = $id; 
+
             if(isset($_POST['remember'])) {
-                    
+                    $_SESSION['status'] = "ok";
                  $_SESSION['status'] = "ok";
                 setcookie ('id', $id,time()+ 3600);
                 header('location: home.php');
