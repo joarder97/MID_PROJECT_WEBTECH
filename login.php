@@ -1,4 +1,3 @@
-<?php require_once 'server.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +6,7 @@
     <title>Login</title>
 </head>
 <body>
-    <form action="login.php" method="post">
+    <form action="" method="post">
         <fieldset>
             <legend>LOGIN</legend>
             <table>
@@ -15,7 +14,7 @@
                     <td>Id</td>
                 </tr>
                 <tr>
-                    <td><input type="text" name="id" value="" required></td>
+                    <td><input type="text" name="id" value="<?php if(isset($_COOKIE['id'])) { echo $_COOKIE['id']; } ?>" required></td>
                 </tr>
                 <tr>
                     <td>Password</td>
@@ -25,6 +24,10 @@
                 </tr>
                 <tr>
                     <td><hr></td>
+                </tr>
+                <tr>
+                    <td><input type="checkbox" name="remember" value="1"> Remember me</td>
+
                 </tr>
                 <tr>
                     <td><input type="submit" value="Login" name="loginButton">
@@ -38,3 +41,6 @@
     </form>
 </body>
 </html>
+<?php
+ require_once 'server.php';
+  ?>

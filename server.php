@@ -1,7 +1,8 @@
 <?php
 
+
     if(isset($_POST["registerButton"])) {
-    	session_start();
+        session_start();
 
     	$id="";
     	$name = "";
@@ -76,7 +77,6 @@
 if(isset($_POST["loginButton"])){
 
         $db = mysqli_connect('127.0.0.1', 'root' , '' , 'adminsystem');
-
         $id = $_POST["id"];
         $password = $_POST["password"];
 
@@ -84,11 +84,20 @@ if(isset($_POST["loginButton"])){
         $user_check_query = "SELECT * FROM admin WHERE uidAdmin= '".$id."' or pwdAdmin = '".$pwd."' LIMIT 1";
          $result1 = $db->query($user_check_query);
 
+
         if(mysqli_num_rows($result1) == 1){
-            session_start();
+            session_start(); 
+             $_SESSION['id'] = $id; 
+            if(isset($_POST['remember'])) {
+                    
+                 $_SESSION['status'] = "ok";
+                setcookie ('id', $id,time()+ 3600);
+                header('location: home.php');
+            }else{
+           
              $_SESSION['status'] = "ok";
             header('location: home.php');
-
+}
         }
         else
         {
@@ -96,7 +105,6 @@ if(isset($_POST["loginButton"])){
         }
         
     }
-
 
 
     
